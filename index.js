@@ -7,6 +7,8 @@ const { url } = require('inspector');
 const xl = require('excel4node');
 const wb = new xl.Workbook();
 const ws = wb.addWorksheet('workSheet Name');
+const {installMouseHelper} = require('./install-mouse-helper');
+
 const {
 start_prompt,
 passArgCheck,
