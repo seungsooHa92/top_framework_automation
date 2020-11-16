@@ -16,6 +16,11 @@ const url_list = [
         page:'checkboxPage'
     },
     {
+        url:'http://localhost:1011/autoMationColorpicker/index.html',
+        id: 'autoMationColorpicker',
+        page:'colorpickerPage'
+    },
+    {
         url:'http://localhost:1048/autoMationTableView/index.html',
         id: 'autoMationTableView',
         page:'TableViewPage'

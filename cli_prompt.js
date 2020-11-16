@@ -10,6 +10,9 @@ const start_prompt = ()=>{
             figlet.textSync('TOP V3 Automation TEST', { horizontalLayout: 'full' })
             )
         );
+    console.log(
+        chalk.yellowBright('Command : node index -h true/false -w [what widget to Test]')
+    );
 
     commander
         

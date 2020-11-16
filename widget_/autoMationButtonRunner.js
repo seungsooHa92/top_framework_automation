@@ -1,6 +1,8 @@
 const {
 pngfilePath,
-_explicit_wait
+_explicit_wait,
+selectorClickFunc,
+
 } = require('../common.js');
 const fs = require('fs');
 const {installMouseHelper} = require('../install-mouse-helper');
@@ -41,35 +43,32 @@ const autoMationButtonRunner = async(page)=>{
 
     */ 
    
+    // ButtonClick
     await page.mouse.move(120,150);
     await page.waitForTimeout(500);
     await page.mouse.down({button:'left'});
     await page.waitForTimeout(500);
     await page.mouse.up({button:'left'});
  
-    await page.waitForTimeout(1500);
+    await page.waitForTimeout(500);
     
-
+    // ButtonDblClick
     await page.mouse.move(120,210);
     await page.waitForTimeout(200);
- 
     await page.mouse.down({clickCount:2});
-    await page.mouse.up({clickCount:3});
+    await page.mouse.up({clickCount:2});
 
-    /*
-    await page.$('#dblclickButton').then((result)=>{
-        result.click({clickCount:2});
-    })
-*/
     await page.waitForTimeout(1500);
 
+
+    // API Test
+    selectorClickFunc(page,'#apiButton',3,500); // apiButton Click
+    await page.waitForTimeout(700);
+    selectorClickFunc(page,'#apiResultShowIcon',3,500); // apiResultShow Click
 
 
 /* 
-original Style Code -----
-
-
-   
+original Style Code ----
 
     let click4Button = _explicit_wait(page,'#clickB4utton',3,500);
 

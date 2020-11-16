@@ -26,10 +26,14 @@ const {
     autoMationCheckboxRunner
 } = require('./widget_/autoMationCheckboxRunner');
 const {
+    autoMationColorpickerRunner
+} = require('./widget_/autoMationColorpickerRunner');
+const {
 autoMationTableViewRunner
 } = require('./widget_/autoMationTableViewRunner.js');
 const commander = require('commander');
 const { cpuUsage } = require('process');
+
 
 const mainRunner = async()=>{
     
@@ -75,10 +79,12 @@ const mainRunner = async()=>{
     page_autoMationAbsolute,
     page_autoMationButton,
     page_autoMationCheckbox,
+    page_autoMationColorpicker,
     page_autoMationTableView
 
     ] = await Promise.all([
 
+        browser.newPage(),
         browser.newPage(),
         browser.newPage(),
         browser.newPage(),
@@ -89,6 +95,7 @@ const mainRunner = async()=>{
     await page_autoMationAbsolute.setViewport(viewPortObj);
     await page_autoMationButton.setViewport(viewPortObj);
     await page_autoMationCheckbox.setViewport(viewPortObj);
+    await page_autoMationColorpicker.setViewport(viewPortObj);
     await page_autoMationTableView.setViewport(viewPortObj);
 
     await Promise.all([
@@ -96,8 +103,9 @@ const mainRunner = async()=>{
         page_autoMationAbsolute.goto('http://localhost:1000/autoMationAbsoluteLayout/index.html'),
         page_autoMationButton.goto('http://localhost:1005/autoMationButton/index.html'),
         page_autoMationCheckbox.goto('http://localhost:1008/autoMationCheckbox/index.html'),
+        page_autoMationColorpicker.goto('http://localhost:1011/autoMationColorpicker/index.html'),
         page_autoMationTableView.goto('http://localhost:1048/autoMationTableView/index.html')
-    
+
     ])
 
 
@@ -113,7 +121,9 @@ const mainRunner = async()=>{
         case 'CheckBox':
             await autoMationCheckboxRunner(page_autoMationCheckbox);
             break;
-
+        case 'Colorpicker':
+            await autoMationColorpickerRunner(page_autoMationColorpicker);
+            break;
         case 'TableView':
             await autoMationTableViewRunner(page_autoMationTableView);
             break;
