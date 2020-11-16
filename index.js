@@ -29,8 +29,13 @@ const {
     autoMationColorpickerRunner
 } = require('./widget_/autoMationColorpickerRunner');
 const {
+autoMationSelectBoxRunner
+} = require('./widget_/autoMationSelectBoxRunner.js');
+
+const {
 autoMationTableViewRunner
 } = require('./widget_/autoMationTableViewRunner.js');
+
 const commander = require('commander');
 const { cpuUsage } = require('process');
 
@@ -80,10 +85,12 @@ const mainRunner = async()=>{
     page_autoMationButton,
     page_autoMationCheckbox,
     page_autoMationColorpicker,
+    page_autoMationSelectBox,
     page_autoMationTableView
 
     ] = await Promise.all([
 
+        browser.newPage(),
         browser.newPage(),
         browser.newPage(),
         browser.newPage(),
@@ -97,15 +104,16 @@ const mainRunner = async()=>{
     await page_autoMationCheckbox.setViewport(viewPortObj);
     await page_autoMationColorpicker.setViewport(viewPortObj);
     await page_autoMationTableView.setViewport(viewPortObj);
-
+    await page_autoMationSelectBox.setViewport(viewPortObj)
     await Promise.all([
 
         page_autoMationAbsolute.goto('http://localhost:1000/autoMationAbsoluteLayout/index.html'),
         page_autoMationButton.goto('http://localhost:1005/autoMationButton/index.html'),
         page_autoMationCheckbox.goto('http://localhost:1008/autoMationCheckbox/index.html'),
         page_autoMationColorpicker.goto('http://localhost:1011/autoMationColorpicker/index.html'),
+        page_autoMationSelectBox.goto('http://localhost:1040/autoMationSelectBox/index.html'),
         page_autoMationTableView.goto('http://localhost:1048/autoMationTableView/index.html')
-
+      
     ])
 
 
@@ -124,6 +132,10 @@ const mainRunner = async()=>{
         case 'Colorpicker':
             await autoMationColorpickerRunner(page_autoMationColorpicker);
             break;
+        case 'SelectBox':
+            await autoMationSelectBoxRunner(page_autoMationSelectBox);
+            break;
+
         case 'TableView':
             await autoMationTableViewRunner(page_autoMationTableView);
             break;
