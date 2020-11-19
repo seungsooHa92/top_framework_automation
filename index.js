@@ -41,7 +41,7 @@ const { cpuUsage } = require('process');
 
 
 const mainRunner = async()=>{
-    
+    console.log('co')
     let ApiList = [];  
     let headless_;    
     commander.headless ? headless_ = true : headless_ = false;
