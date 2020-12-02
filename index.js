@@ -3,11 +3,8 @@ const util = require('util');
 const path = require('path');
 const puppeteer = require('puppeteer');
 const {url_list, viewPortObj} = require('./common.js');
-const { url } = require('inspector');
-const xl = require('excel4node');
-const wb = new xl.Workbook();
-const ws = wb.addWorksheet('workSheet Name');
-const {installMouseHelper} = require('./install-mouse-helper');
+const inquirer = require('inquirer');
+const chalk = require('chalk');
 
 const {
 start_prompt,
@@ -40,18 +37,19 @@ const commander = require('commander');
 const { cpuUsage } = require('process');
 
 
-const mainRunner = async()=>{
-    console.log('co')
+const mainRunner = async(_headless, module)=>{
+  
     let ApiList = [];  
-    let headless_;    
-    commander.headless ? headless_ = true : headless_ = false;
+   
+    // String to Bool
+    let headlessMode = (_headless === 'true')
 
     // cli_start
     start_prompt();    
     // custom argument는 node 프로그램과 main (index.js) 파일을 제외한 나머지들을 slice 시킨다.
 
     const browser = await puppeteer.launch({
-        headless: false, 
+        headless: headlessMode, 
         args: ['--window-size=1920,1080']
     });
 
@@ -116,8 +114,12 @@ const mainRunner = async()=>{
       
     ])
 
+    console.log('Before Switch State >>>>>',module)
 
-    switch(commander.w){
+    //inquirer 인자값이 list로 들어오네 ..?
+
+    switch(module[0]){
+
         case 'AbsoluteLayout':
             await autoMationAbsoluteLayoutRunner(page_autoMationAbsolute);
             break;
@@ -151,4 +153,27 @@ const mainRunner = async()=>{
 
     }
 }
-mainRunner();
+
+
+inquirer
+    .prompt([
+        {
+		    type: 'list',
+		    name: 'head',
+		    message: 'TOPAutomation Run! choose your Headless Mode [T/F] default is true',
+		    choices: ['true', 'false'],
+        },
+        {
+            type: 'checkbox',
+		    name: 'module',
+		    message: 'What you want to Test Module ?',
+		    choices: ['all', 'AbsoluteLayout','Button','CheckBox','ColorPicker','SelectBox','TableView'],
+        }
+    
+    ])
+    .then((answers) => {
+        console.log(chalk.green('[Headless Mode] is :', answers.head));
+        console.log(chalk.green('[Headless Mode] is :', answers.module));
+
+        mainRunner(answers.head, answers.module);
+    })

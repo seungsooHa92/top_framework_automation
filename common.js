@@ -27,7 +27,7 @@ const url_list = [
     },
 ]
 
-const pngfilePath = "C:\\Users\\seungsoo_ha\\Desktop\\topAutomation\\"
+const pngfilePath = "C:\\Users\\seung\\OneDrive\\바탕 화면\\forWork\\topautomation"
 
 const viewPortObj = {//set Page viewPort
         width: 1920,
