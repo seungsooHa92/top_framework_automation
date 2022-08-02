@@ -102,7 +102,9 @@ const mainRunner = async(_headless, module)=>{
     await page_autoMationCheckbox.setViewport(viewPortObj);
     await page_autoMationColorpicker.setViewport(viewPortObj);
     await page_autoMationTableView.setViewport(viewPortObj);
-    await page_autoMationSelectBox.setViewport(viewPortObj)
+    await page_autoMationSelectBox.setViewport(viewPortObj);
+
+    
     await Promise.all([
 
         page_autoMationAbsolute.goto('http://localhost:1000/autoMationAbsoluteLayout/index.html'),
@@ -111,7 +113,7 @@ const mainRunner = async(_headless, module)=>{
         page_autoMationColorpicker.goto('http://localhost:1011/autoMationColorpicker/index.html'),
         page_autoMationSelectBox.goto('http://localhost:1040/autoMationSelectBox/index.html'),
         page_autoMationTableView.goto('http://localhost:1048/autoMationTableView/index.html')
-      
+        
     ])
 
     console.log('Before Switch State >>>>>',module)
